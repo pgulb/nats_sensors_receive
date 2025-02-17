@@ -1,0 +1,4 @@
+nats.creds
+credentials.json
+*.exe
+nats_receive
