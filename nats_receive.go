@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -116,7 +117,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	nc, err := nats.Connect("tls://connect.ngs.global", nats.UserCredentials(natsCreds))
+	nc, err := nats.Connect(
+		"tls://connect.ngs.global",
+		nats.UserCredentials(natsCreds),
+		nats.Secure(&tls.Config{
+			InsecureSkipVerify: true}),
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
