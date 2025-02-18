@@ -68,8 +68,9 @@ func handleMsg(msg jetstream.Msg) {
 		log.Fatal(err)
 	}
 
-	newId := fmt.Sprintf("%s-%v", strings.ReplaceAll(data.Id, ":", ""), data.Timestamp)
-	latestId := fmt.Sprintf("%s-latest", data.Id)
+	repl := strings.ReplaceAll(data.Id, ":", "")
+	newId := fmt.Sprintf("%s-%v", repl, data.Timestamp)
+	latestId := fmt.Sprintf("%s-latest", repl)
 	_, err = col.Upsert(newId, data, nil)
 	if err != nil {
 		log.Fatal(err)
